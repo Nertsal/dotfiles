@@ -1,0 +1,7 @@
+[user]
+	email = sasha.kudasov04@gmail.com
+	name = Nertsal
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
