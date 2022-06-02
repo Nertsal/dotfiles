@@ -115,3 +115,5 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 [ -f "/home/nertsal/.ghcup/env" ] && source "/home/nertsal/.ghcup/env" # ghcup-env
+
+alias config='/usr/bin/git --git-dir=/home/nertsal/.cfg/ --work-tree=/home/nertsal'
