@@ -10,6 +10,8 @@ Plug 'preservim/nerdcommenter'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'cocopon/iceberg.vim'
+
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'neovim/nvim-lspconfig'
@@ -22,35 +24,36 @@ call plug#end()
 
 lua << EOF
 require'navigator'.setup()
-require'lspconfig'.hls.setup {
-    single_file_support = true
-}
 EOF
 
-" haskell-vim settings
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+" Coc keybindings
+map <Leader>ggd <Plug>(coc-definition)
+map <Leader>ggi <Plug>(coc-implementation)
+map <Leader>ggt <Plug>(coc-type-definition)
+map <Leader>gh :call CocActionAsync('doHover')<cr>
+map <Leader>gn <Plug>(coc-diagnostic-next)
+map <Leader>gp <Plug>(coc-diagnostic-prev)
+map <Leader>gr <Plug>(coc-references)
 
-" TextEdit might fail if hidden is not set.
-set hidden
-set updatetime=300
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-set cmdheight=2
+map <Leader>rn <Plug>(coc-rename)
+map <Leader>rf <Plug>(coc-refactor)
+map <Leader>qf <Plug>(coc-fix-current)
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
-else
-    set signcolumn=yes
-endif
+map <Leader>al <Plug>(coc-codeaction-line)
+map <Leader>ac <Plug>(coc-codeaction-cursor)
+map <Leader>ao <Plug>(coc-codelens-action)
+
+nnoremap <Leader>kd :<C-u>CocList diagnostics<Cr>
+nnoremap <Leader>kc :<C-u>CocList commands<Cr>
+nnoremap <Leader>ko :<C-u>CocList outline<Cr>
+nnoremap <Leader>kr :<C-u>CocListResume<Cr>
+
+" Trigger autocompletion on <C-Space>
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Use <Tab> and <S-Tab> to navigate the completion list
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -61,43 +64,15 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if CocAction('hasProvider', 'hover')
-        call CocActionAsync('doHover')
-    else
-        call feedkeys('K', 'in')
-    endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" Disable Coc for agda files
+autocmd BufNewFile,BufRead *.agda execute 'CocDisable'
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline=%t%m%r%{coc#status()}%{get(b:,'coc_current_function','')}
 
+set updatetime=200
 set shada='1000,f1,<500
 set relativenumber
 set scrolloff=5
@@ -154,13 +129,6 @@ nnoremap <C-l> <C-w>l
 :inoremap <C-k> <C-\><C-N><C-w>k
 :inoremap <C-l> <C-\><C-N><C-w>l
 
-" Press i to enter insert mode, and ii to exit insert mode.
-" :inoremap ii <Esc>
-" :inoremap jk <Esc>
-" :inoremap kj <Esc>
-" :vnoremap jk <Esc>
-" :vnoremap kj <Esc>
-
 " open file in a text by placing text and gf
 nnoremap gf :vert winc f<CR>
 
@@ -193,12 +161,6 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
-" For local replace
-nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
-
-" For global replace
-nnoremap gR gD:%s/<C-R>///gc<left><left><left>
-
 " Format
 nnoremap <C-I> :Autoformat<CR>
 
@@ -215,4 +177,5 @@ endif
 :noh
 
 " Colors
+colorscheme iceberg
 hi Pmenu guibg=Black
