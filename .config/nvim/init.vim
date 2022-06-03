@@ -1,30 +1,35 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'dracula/vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'scrooloose/nerdtree'
-Plug 'preservim/nerdcommenter'
-Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ryanoasis/vim-devicons' " Extra icons
+Plug 'mhinz/vim-startify' " Start-up screen
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' } " Markdown preview
 
+" Colorshemes
+Plug 'dracula/vim'
 Plug 'cocopon/iceberg.vim'
 
+" IDE features
 Plug 'Chiel92/vim-autoformat'
-
+Plug 'preservim/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make'}
 Plug 'ray-x/navigator.lua'
-
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'nvim-treesitter/nvim-treesitter-refactor' "this provides "go to def" etc
+
+" Language specific
+Plug 'neovimhaskell/haskell-vim'
 call plug#end()
 
 lua << EOF
 require'navigator'.setup()
 EOF
+
+" Load plugins from ~/.config/nvim/bundle/
+execute pathogen#infect()
 
 " Coc keybindings
 map <Leader>ggd <Plug>(coc-definition)
@@ -71,6 +76,21 @@ autocmd BufNewFile,BufRead *.agda execute 'CocDisable'
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline=%t%m%r%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" haskell-vim config
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+" NERD-commenter config
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
 
 set updatetime=200
 set shada='1000,f1,<500
