@@ -11,10 +11,15 @@ Plug 'kyazdani42/nvim-web-devicons' " Extra icons
 Plug 'dracula/vim'
 Plug 'cocopon/iceberg.vim'
 
+" NERDTree
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdtree-project-plugin'
+
 " IDE features
 Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdcommenter'
-Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make'}
