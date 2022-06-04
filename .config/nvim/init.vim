@@ -15,7 +15,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'scrooloose/nerdtree-project-plugin'
+" Plug 'scrooloose/nerdtree-project-plugin'
 
 " IDE features
 Plug 'Chiel92/vim-autoformat'
