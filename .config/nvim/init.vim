@@ -157,7 +157,7 @@ filetype plugin indent on
 filetype plugin on
 
 " Set font
-set guifont=Monospace:h10
+set guifont=Monospace:h12
 
 " move line or visually selected block - alt+j/k
 inoremap  <A-j> <Esc>:m .+1<CR>==gi
@@ -196,7 +196,7 @@ nnoremap gf :vert winc f<CR>
 
 " open fzf file explorer
 nnoremap <C-p> :GFiles<CR>
-"nnoremap <C-P> :Files<CR>
+nnoremap <A-p> :Files<CR>
 
 " Esc in terminal mode
 :tnoremap <Esc> <C-\><C-n>
@@ -218,7 +218,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
 " Format
-nnoremap <C-I> :Autoformat<CR>
+nnoremap <A-i> :Autoformat<CR>
 
 " Format on save
 " au BufWrite * :Autoformat

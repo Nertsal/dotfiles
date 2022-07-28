@@ -11,7 +11,11 @@
                 "hie.yaml"
             ],
             "filetypes": [ "hs", "lhs", "haskell" ],
-            "initializationOptions": { "languageServerHaskell": {} }
+            "initializationOptions": {
+                "languageServerHaskell": {
+                    "formattingProvider": "stylish-haskell"
+                }
+            }
         }
     },
     "suggest": {

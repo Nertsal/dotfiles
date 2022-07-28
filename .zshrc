@@ -117,3 +117,5 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 [ -f "/home/nertsal/.ghcup/env" ] && source "/home/nertsal/.ghcup/env" # ghcup-env
 
 alias config='/usr/bin/git --git-dir=/home/nertsal/.cfg/ --work-tree=/home/nertsal'
+
+export ANDROID_NDK_ROOT=/opt/android-sdk/ndk/21.3.6528147/
