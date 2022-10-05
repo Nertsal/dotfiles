@@ -119,3 +119,7 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 alias config='/usr/bin/git --git-dir=/home/nertsal/.cfg/ --work-tree=/home/nertsal'
 
 export ANDROID_NDK_ROOT=/opt/android-sdk/ndk/21.3.6528147/
+
+export RUSTC_WRAPPER=/bin/sccache
+
+source ~/.config/broot/launcher/bash/br
