@@ -48,7 +48,7 @@ xsetroot -cursor_name left_ptr
 # feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/penguin.jpg &
 
 # Change color pallete based on the background
-wal -i ~/Pictures/Wallpapers/penguin.jpg -s &
+# wal -i ~/Pictures/Wallpapers/penguin.jpg -s &
 
 # Set keyboard layout
 setxkbmap -option grp:alt_shift_toggle us,ru &
@@ -61,6 +61,9 @@ xfce4-power-manager &
 
 # Lock on suspend and stuff
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
+
+# Turn on xbindkeys
+xbindkeys
 
 # twm &
 # xclock -geometry 50x50-1+1 &
