@@ -26,8 +26,10 @@ myConfig =
     , layoutHook = myLayout -- Custom layout
     , startupHook = myStartup -- Actions on start
     }
-    `additionalKeysP` [ ("M-S-z", spawn "xset s activate")
+    `additionalKeysP` [ ("M-p", spawn "dmenu_path | dmenu | sh")
+                      , ("M-S-z", spawn "xset s activate")
                       , ("M-S-s", unGrab *> spawn "bash ~/Scripts/screenshot.sh")
+                      , ("M-s", spawn "shotgun -s - | xclip -t 'image/png' -selection clipboard")
                       , ("M-S-<Return>", spawn "alacritty")
                       , ("M-C-S-<Return>", spawn "neovide --multigrid")
                     --, ("M-[", spawn "telegram-desktop")
