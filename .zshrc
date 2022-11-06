@@ -123,3 +123,5 @@ export ANDROID_NDK_ROOT=/opt/android-sdk/ndk/21.3.6528147/
 export RUSTC_WRAPPER=/bin/sccache
 
 source ~/.config/broot/launcher/bash/br
+
+eval "$(zoxide init zsh)"
