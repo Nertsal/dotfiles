@@ -46,8 +46,8 @@ myLayout = tiled ||| Mirror tiled ||| threeCol ||| Full
 
 myStartup :: X ()
 myStartup = do
-  spawn $ "xrandr --auto && sh ~/.screenlayout/normal-1-1.sh" -- Update monitor info, setup monitor layout
-  spawn $ "feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/rusthaskell.png" -- Set background
+  spawn "xrandr --auto && sh ~/.screenlayout/normal-1-1.sh" -- Update monitor info, setup monitor layout
+  spawn "feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/rusthaskell.png" -- Set background
 
 myXmobarPP :: PP
 myXmobarPP =
