@@ -1,0 +1,21 @@
+layout {
+	pane split_direction="vertical" {
+		pane {
+			name "Editor"
+			size "60%"
+			command "helix"
+			focus true
+		}
+		pane {
+			pane {
+				name "Compiler"
+				size "70%"
+				command "bacon"
+				args "-j" "clippy"
+			}
+			pane {
+				name "Console"
+			}
+		}
+	}
+}
