@@ -1,21 +1,24 @@
 layout {
 	pane split_direction="vertical" {
 		pane {
-			name "Editor"
+			name "smash buttons here"
 			size "60%"
 			command "helix"
 			focus true
 		}
 		pane {
 			pane {
-				name "Compiler"
+				name "squiggly lines"
 				size "70%"
 				command "bacon"
-				args "-j" "clippy"
+				args "-j" "clippy" "-w" "--" "--no-deps"
 			}
 			pane {
-				name "Console"
+				name "random stuff"
 			}
 		}
+	}
+	pane size=2 borderless=true {
+		plugin location="zellij:status-bar"
 	}
 }
