@@ -25,6 +25,7 @@ myConfig =
     { modMask = mod4Mask -- Rebind Mod to the Super key
     , layoutHook = myLayout -- Custom layout
     , startupHook = myStartup -- Actions on start
+    , borderWidth = 1 -- Window border
     }
     `additionalKeysP` [ ("M-p", spawn "dmenu_path | dmenu | sh")
                       , ("M-S-z", spawn "xset s activate")
@@ -46,8 +47,8 @@ myLayout = tiled ||| Mirror tiled ||| threeCol ||| Full
 
 myStartup :: X ()
 myStartup = do
-  spawn "xrandr --auto && sh ~/.screenlayout/normal-1-1.sh" -- Update monitor info, setup monitor layout
-  spawn "feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/everyone.png" -- Set background
+  -- Update monitor info, Setup monitor layout, Set background
+  spawn "xrandr --auto; sh ~/.screenlayout/normal-1-1.sh; feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/everyone.png"
 
 myXmobarPP :: PP
 myXmobarPP =
