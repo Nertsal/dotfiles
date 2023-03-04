@@ -11,7 +11,7 @@ layout {
 				name "squiggly lines"
 				size "70%"
 				command "bacon"
-				args "-j" "clippy" "-w" "--" "--no-deps"
+				args "-j" "clippy" "-w"
 			}
 			pane {
 				name "random stuff"
