@@ -35,3 +35,5 @@
 - felix - tui file manager with vim-like key mapping
 - xxh - Bring your favorite shell wherever you go through the ssh. 
 - comrak - CommonMark + GFM compatible Markdown parser and renderer.
+- edrtree - A multi-threaded file-tree visualizer and disk usage analyzer. 
+- gix (gitoxide) - An idiomatic, lean, fast & safe pure Rust implementation of Git.
