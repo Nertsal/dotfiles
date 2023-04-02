@@ -1,8 +1,9 @@
 import           XMonad
+import qualified XMonad.StackSet as StackSet
+import qualified XMonad.Actions.GroupNavigation as Navigation
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.StatusBar
-import           XMonad.Hooks.StatusBar.PP
 import           XMonad.Layout.Magnifier
 import           XMonad.Layout.ThreeColumns
 import           XMonad.Util.EZConfig
@@ -23,19 +24,37 @@ main =
 myConfig =
   def
     { modMask = mod4Mask -- Rebind Mod to the Super key
+    , workspaces = myWorkspaces
     , layoutHook = myLayout -- Custom layout
     , startupHook = myStartup -- Actions on start
     , borderWidth = 1 -- Window border
+    , logHook = Navigation.historyHook -- Keep history of windows
     }
-    `additionalKeysP` [ ("M-p", spawn "dmenu_path | dmenu | sh")
-                      , ("M-S-z", spawn "xset s activate")
-                      , ("M-S-s", unGrab *> spawn "bash ~/Scripts/screenshot.sh")
-                      , ("M-s", spawn "shotgun -s - | xclip -t 'image/png' -selection clipboard")
-                      , ("M-S-<Return>", spawn "alacritty")
-                      , ("M-C-S-<Return>", spawn "neovide --multigrid")
-                    --, ("M-[", spawn "telegram-desktop")
-                    --, ("M-]", spawn "firefox")
-                      ]
+    `additionalKeysP` myKeys 
+
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+isVisible w ws = any ((w ==) . StackSet.tag . StackSet.workspace) (StackSet.visible ws)
+
+lazyView w ws = if isVisible w ws then ws else StackSet.view w ws
+
+myKeys = [ ("M-p", spawn "dmenu_path | dmenu | sh") -- dmenu
+         , ("M-S-z", spawn "xset s activate") -- Screen lock
+         , ("M-S-s", unGrab *> spawn "bash ~/Scripts/screenshot.sh") -- Select screenshot area
+         , ("M-s", spawn "shotgun -s - | xclip -t 'image/png' -selection clipboard") -- Take the whole screenshot
+         , ("M-S-<Return>", spawn "alacritty") -- Terminal
+         , ("M-x", Navigation.nextMatch Navigation.History (return True)) -- Toggle between the most recent window
+         -- , ("M-C-S-<Return>", spawn "neovide --multigrid") -- Neovide
+         --, ("M-[", spawn "telegram-desktop")
+         --, ("M-]", spawn "firefox")
+         ] ++
+         [ (otherModMasks ++ "M-" ++ [key], action tag)
+           | (tag, key) <- zip myWorkspaces "123456789"
+           , (otherModMasks, action) <- [ ("", windows . lazyView) -- `greedyView` by default
+                                        , ("C-", windows . StackSet.greedyView)
+                                        , ("S-", windows . StackSet.shift)
+                                        ]
+         ]
 
 myLayout = tiled ||| Mirror tiled ||| threeCol ||| Full
   where
