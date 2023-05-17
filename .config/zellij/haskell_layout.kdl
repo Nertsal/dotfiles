@@ -1,0 +1,23 @@
+layout {
+	pane split_direction="vertical" {
+		pane {
+			name "smash buttons here"
+			size "60%"
+			command "helix"
+			focus true
+		}
+		pane {
+			pane {
+				name "squiggly lines"
+				size "70%"
+				command "ghcid"
+			}
+			pane {
+				name "random stuff"
+			}
+		}
+	}
+	pane size=2 borderless=true {
+		plugin location="zellij:status-bar"
+	}
+}

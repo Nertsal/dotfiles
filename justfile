@@ -1,6 +1,9 @@
 rust FOLDER:
 	cd $(zoxide query -i -- {{FOLDER}}); zellij -l ~/.config/zellij/rust_layout.kdl
 
+hs FOLDER:
+	cd $(zoxide query -i -- {{FOLDER}}); zellij -l ~/.config/zellij/haskell_layout.kdl
+
 stream-setup:
 	zellij -l ~/.config/zellij/stream_layout.kdl
 
